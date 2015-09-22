@@ -1,0 +1,22 @@
+<template name="ambassadorSettings">
+  <div class="panel-body">
+    {{#autoForm
+        collection="ReactionCore.Collections.Packages"
+        schema="ReactionCore.Schemas.AmbassadorPackageConfig"
+        doc=packageData
+        type="update"
+        id="ambassador-update-form"
+        }}
+
+    <div class="form-group">
+      Don't have a Ambassador account? <a href="https://getambassador.com/signup/" target="_blank">Get one here.</a>
+    </div>
+
+    {{>afQuickField  name='settings.public.title'}}
+    {{>afQuickField  name='settings.api.account'}}
+    {{>afQuickField  name='settings.api.key' type='password'}}
+
+    <button type="submit" class="zopim-btn btn btn-primary pull-right">Save Changes</button>
+      {{/autoForm}}
+    </div>
+</template>
