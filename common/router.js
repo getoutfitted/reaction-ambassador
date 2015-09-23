@@ -1,12 +1,13 @@
 AmbassadorController = ShopController.extend({
   onBeforeAction: function(){
-    if(! ReactionCore.Collections.Packages.findOne({
+    var ambassador = ReactionCore.Collections.Packages.findOne({
       name: "reaction-ambassador"
-      }).enabled){
+      });
+    var lowerCaseTitle = ambassador.settings.public.title.toLowerCase();
+    var lowerCaseParams = this.params.customTitle.toLowerCase();
+    if(! ambassador.enabled){
         this.render('notFound');
-      } else if((ReactionCore.Collections.Packages.findOne({
-        name: "reaction-ambassador"
-      })).settings.public.title.toLowerCase() !== this.params.customTitle.toLowerCase()){
+      } else if(lowerCaseTitle !== lowerCaseParams){
         this.render('notFound');
       } else {
         this.next();
