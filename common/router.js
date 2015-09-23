@@ -38,35 +38,3 @@ Router.map(function(){
 });
 
 
-
-// var ambassador = ReactionCore.Collections.Packages.findOne({
-//     name: "reaction-ambassador"
-//   });
-// if (ambassador.enabled) {
-//   var urlName = ambassador.settings.public.title.toLowerCase();
-//   Router.map(function(urlName){
-//     this.route('ambassador', {
-//       controller: ShopAdminController,
-//       path: '/ambassador/'+ urlName,
-//       template: 'ambassadorPage',
-//       waitOn: function(){
-//         return ReactorCore.Subscriptions.Packages;
-//       },
-//       data: function(){
-//         return ambassador.settings.title.toLowerCase();
-//       }
-//     });
-//   });
-// }
-  // var urlName = ambassador.settings.title.toLowerCase();
-  // Router.map(function(urlName){
-  //   this.route("ambassador"), {
-  //     controller: ShopAdminController,
-  //     path: '/' + urlName,
-  //     template: 'ambassadorPage',
-  //     waitOn: function(){
-  //       return ReactorCore.Subscriptions.Packages;
-  //     }
-  //   };
-  // });
-// }
