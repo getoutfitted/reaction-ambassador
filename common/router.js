@@ -11,18 +11,19 @@ AmbassadorController = ShopController.extend({
 });
 
 Router.map(function(){
-  this.route('dashboard/ambassador'), {
+  this.route('dashboard/ambassador', {
     controller: ShopAdminController,
     path: '/dashboard/ambassador',
     template: 'ambassadorSettings',
     waitOn: function(){
       return ReactionCore.Subscriptions.Packages;
     }
-  },
+  }),
 
   this.route('ambassador', {
     controller: AmbassadorController,
-
+    path: '/ambassador',
+    template: 'ambassadorPage'
   })
 });
 

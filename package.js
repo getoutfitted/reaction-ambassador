@@ -27,5 +27,8 @@ Package.onUse(function(api, where){
     'common/router.js',
     "common/collections.js",
   ], ["client", "server"]);
+  api.addFiles([
+    "images/ambassador.png",
+  ],  "client", {isAsset: true});
 
 });
