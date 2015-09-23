@@ -25,10 +25,13 @@ Package.onUse(function(api, where){
   ], 'client');
   api.addFiles([
     'common/router.js',
-    "common/collections.js",
-  ], ["client", "server"]);
+    'common/collections.js',
+  ], ['client', 'server']);
   api.addFiles([
-    "images/ambassador.png",
-  ],  "client", {isAsset: true});
+    'images/ambassador.png',
+  ],  'client', {isAsset: true});
+  api.addFiles([
+    'client/templates/ambassadorPage/ambassadorPage.less'
+  ], 'server', {isAsset: true});
 
 });

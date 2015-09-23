@@ -4,6 +4,10 @@ AmbassadorController = ShopController.extend({
       name: "reaction-ambassador"
       }).enabled){
         this.render('notFound');
+      } else if((ReactionCore.Collections.Packages.findOne({
+      name: "reaction-ambassador"
+      })).settings.public.title.toLowerCase() !== this.params.customTitle.toLowerCase()  ){
+        this.render('notFound');
       } else {
         this.next();
     }
@@ -20,9 +24,15 @@ Router.map(function(){
     }
   }),
 
-  this.route('ambassador', {
+  // this.route('ambassador', {
+  //   controller: AmbassadorController,
+  //   path: '/ambassador',
+  //   template: 'ambassadorPage'
+  // }),
+
+    this.route('ambassadorPage', {
     controller: AmbassadorController,
-    path: '/ambassador',
+    path: '/ambassador/:customTitle',
     template: 'ambassadorPage'
   })
 });
