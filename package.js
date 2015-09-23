@@ -14,6 +14,7 @@ Package.onUse(function(api, where){
 
   api.addFiles([
     'server/register.js',
+    'server/methods/ambassador.js'
   ], 'server');
   api.addFiles([
     'client/templates/settings/settings.html',
