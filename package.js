@@ -6,7 +6,7 @@ Package.describe({
 });
 
 Package.onUse(function(api, where){
-  api.versionsFrom('METEOR@1.1.0.2');
+  api.versionsFrom('METEOR@1.2');
   api.use('meteor-platform');
   api.use('less');
   api.use('http');
@@ -21,11 +21,18 @@ Package.onUse(function(api, where){
     'client/templates/settings/settings.js',
     'client/templates/dashboard/dashboard.html',
     'client/templates/dashboard/dashboard.js',
-    'client/templates/ambassadorPage/ambassadorPage.html'
+    'client/templates/ambassadorPage/ambassadorPage.html',
+    'client/templates/ambassadorPage/ambassadorPage.js'
   ], 'client');
   api.addFiles([
     'common/router.js',
-    "common/collections.js",
-  ], ["client", "server"]);
+    'common/collections.js',
+  ], ['client', 'server']);
+  api.addAssets([
+    'images/ambassador.png',
+  ],  'client');
+  api.addAssets([
+    'client/templates/ambassadorPage/ambassadorPage.less'
+  ], 'server');
 
 });

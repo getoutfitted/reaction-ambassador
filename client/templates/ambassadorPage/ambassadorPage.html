@@ -1,3 +1,32 @@
-<template name="ambassador">
-  <h4>AMbassador page</h4>
+<template name="ambassadorPage">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <h3><strong>{{packageData.title}}</strong></h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-7 col-lg-7">
+        <h1><strong>{{packageData.header}}</strong></h1>
+        <p class="lead">{{packageData.body}}</p>
+        {{#if packageData.body2 }}
+          <p class="lead">{{packageData.body2}}</p>
+        {{/if}}
+        {{#if packageData.body3 }}
+          <p class="lead">{{packageData.body3}}</p>
+        {{/if}}
+        <a target="_blank" class="btn btn-lg btn-success" href="{{packageData.domain}}">Get Started</a>
+      </div>
+      <div class="col-sm-12 col-md-5 col-lg-5">
+        <a href="{{packageData.domain}}"><img src="/packages/getoutfitted_reaction-ambassador/images/ambassador.png"> </a>
+      </div>
+    </div>
+    <div class="row">
+      <br>
+      {{#if  contactInfo }}
+      <p class="lead">Have any questions, comments, or trouble? Email <a class="getoutfitted-link" href="mailto:{{packageData.contact.email}}">{{packageData.contact.email}}</a> or call <a class="getoutfitted-link" href="tel:{{packageData.contact.phone}}">{{packageData.contact.phone}}</a></p>
+      {{/if}}
+    </div>
+  </div>
+
 </template>
