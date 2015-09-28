@@ -2,27 +2,30 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <h3><strong>AFFILIATES</strong></h3>
+        <h3><strong>{{packageData.title}}</strong></h3>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12 col-md-7 col-lg-7">
-        <h1><strong>BECOME A GETOUTFITTED PARTNER</strong></h1>
-        <p class="lead">Get in on the action by becoming an GetOutfitted partner. GetOutfitted is a great add on service for activity providers, tour operators, event coordinators, resorts, hotels, charter buses, bloggers and more. Essentially we become your outsourced gear rental and activity booking department and you get a cut. It is as easy as sending an email to your clients and boosting your revenue.</p>
-
-
-        <p class="lead">It’s free to sign up and we offer a simple and powerful backend to generate unique links, you also have access to download all sorts of images, banners, and buttons with your unique tracking code. Once you sign up you can log in can see your progress in real time and get paid monthly.</p>
-
-        <p class="lead">Join a group of premier operators, hotels, and resorts from all over the world.</p>
-        <a target="_blank" class="btn btn-lg btn-success" href="https://getoutfitted.getambassador.com/">Get Started</a>
+        <h1><strong>{{packageData.header}}</strong></h1>
+        <p class="lead">{{packageData.body}}</p>
+        {{#if packageData.body2 }}
+          <p class="lead">{{packageData.body2}}</p>
+        {{/if}}
+        {{#if packageData.body3 }}
+          <p class="lead">{{packageData.body3}}</p>
+        {{/if}}
+        <a target="_blank" class="btn btn-lg btn-success" href="{{packageData.domain}}">Get Started</a>
       </div>
       <div class="col-sm-12 col-md-5 col-lg-5">
-        <a href="https://getoutfitted.getambassador.com/"><img src="/packages/getoutfitted_reaction-ambassador/images/ambassador.png"> </a>
+        <a href="{{packageData.domain}}"><img src="/packages/getoutfitted_reaction-ambassador/images/ambassador.png"> </a>
       </div>
     </div>
     <div class="row">
       <br>
-      <p class="lead">Have any questions, comments, or trouble? Email <a class="getoutfitted-link" href="mailto:mike@getoutfitted.com">mike@getoutfitted.com</a> or call <a class="getoutfitted-link" href="tel:7192464317">719-246-4317</a></p>
+      {{#if  contactInfo }}
+      <p class="lead">Have any questions, comments, or trouble? Email <a class="getoutfitted-link" href="mailto:{{packageData.contact.email}}">{{packageData.contact.email}}</a> or call <a class="getoutfitted-link" href="tel:{{packageData.contact.phone}}">{{packageData.contact.phone}}</a></p>
+      {{/if}}
     </div>
   </div>
 

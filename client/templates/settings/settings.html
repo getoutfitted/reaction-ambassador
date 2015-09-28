@@ -11,10 +11,20 @@
     <div class="form-group">
       Don't have a Ambassador account? <a href="https://getambassador.com/signup/" target="_blank">Get one here.</a>
     </div>
-
+    <p>Ambassador Account Setup</p>
     {{>afQuickField  name='settings.public.title'}}
     {{>afQuickField  name='settings.api.account'}}
     {{>afQuickField  name='settings.api.key' type='password'}}
+    {{>afQuickField  name='settings.public.domain'}}
+
+    <hr>
+    <p>Ambassador Page Content</p>
+    {{>afQuickField  name='settings.public.header'}}
+    {{>afQuickField  type='textarea' rows="5" name='settings.public.body'}}
+    {{>afQuickField  type='textarea' rows="5" name='settings.public.body2'}}
+    {{>afQuickField  type='textarea' rows="5" name='settings.public.body3'}}
+    {{>afQuickField name='settings.public.contact.email'}}
+    {{>afQuickField name='settings.public.contact.phone'}}
 
     <button type="submit" class="zopim-btn btn btn-primary pull-right">Save Changes</button>
       {{/autoForm}}
