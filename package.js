@@ -1,7 +1,7 @@
 Package.describe({
   summary: 'Reaction Ambassador - Ambassador brand referral program for Reaction Commerce',
   name: 'getoutfitted:reaction-ambassador',
-  version: '0.1.0',
+  version: '0.2.0',
   // git: "https://github.com/reactioncommerce/reaction-paypal.git"
 });
 

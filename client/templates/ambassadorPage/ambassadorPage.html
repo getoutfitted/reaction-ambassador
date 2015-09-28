@@ -23,9 +23,23 @@
     </div>
     <div class="row">
       <br>
-      {{#if  contactInfo }}
-      <p class="lead">Have any questions, comments, or trouble? Email <a class="getoutfitted-link" href="mailto:{{packageData.contact.email}}">{{packageData.contact.email}}</a> or call <a class="getoutfitted-link" href="tel:{{packageData.contact.phone}}">{{packageData.contact.phone}}</a></p>
+      {{#if  packageData.contact }}
+      <p class="lead">Have any questions, comments, or trouble?
+
+        {{#if packageData.contact.email}}
+        Email <a class="getoutfitted-link" href="mailto:{{packageData.contact.email}}">{{packageData.contact.email}}</a>
+        {{/if}}
+
+        {{#if contactInfo}}
+          or
+        {{/if}}
+
+        {{#if packageData.contact.phone}}
+          Call <a class="getoutfitted-link" href="tel:{{packageData.contact.phone}}">{{packageData.contact.phone}}</a>
+        {{/if}}
+        </p>
       {{/if}}
+
     </div>
   </div>
 
