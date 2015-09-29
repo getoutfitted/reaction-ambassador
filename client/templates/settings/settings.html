@@ -25,8 +25,20 @@
     {{>afQuickField  type='textarea' rows="5" name='settings.public.body3'}}
     {{>afQuickField name='settings.public.contact.email'}}
     {{>afQuickField name='settings.public.contact.phone'}}
+    {{#if imageName}}
 
-    <button type="submit" class="zopim-btn btn btn-primary pull-right">Save Changes</button>
+        <p>Currently loaded image : {{imageName}}</p>
+    {{/if}}
+        {{#each imageBase}}
+      <div>
+        <a href="{{this.url}}" target="_blank"><img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" /></a>
+      </div>
+    {{/each}}
+
+    <input type=file name="ambassadorFile" id="ambassadorFile">
+
+
+    <button type="submit" class="btn btn-primary pull-right">Save Changes</button>
       {{/autoForm}}
     </div>
 </template>
