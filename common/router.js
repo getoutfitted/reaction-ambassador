@@ -25,11 +25,22 @@ Router.map(function(){
     }
   }),
 
-    this.route('ambassadorPage', {
+  this.route('ambassadorPage', {
     controller: AmbassadorController,
     path: '/ambassador/:customTitle',
     template: 'ambassadorPage'
   })
 });
 
+var ambassadorParams = {
+  check: function(){
+    var pathParams = this.params.query;
+    if (! _.isEmpty(pathParams)){
+      if(_.isEqual(_.keys(pathParams),  ["campaignid", "mbsy", "mbsy_source"]) ){
+          Session.set('ambassador', pathParams);
+        }
+    }
+  }
+};
+Router.onAfterAction(ambassadorParams.check);
 

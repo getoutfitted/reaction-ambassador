@@ -17,6 +17,7 @@ Package.onUse(function(api, where){
   api.use("cfs:gridfs@0.0.33");
   api.use("cfs:filesystem@0.1.2");
   api.use("cfs:ui@0.1.3");
+  api.use("iron:router@1.0.9");
 
   api.addFiles([
     'server/register.js',
