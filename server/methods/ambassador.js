@@ -7,11 +7,6 @@ Meteor.methods({
       return ambassador.enabled;
     }
   },
-  ambassador: function(){
-    return ReactionCore.Collections.Packages.findOne({
-      name: "reaction-ambassador"
-    });
-  },
   previousImages: function(shopId){
     check(shopId, String);
     // ReactionCore.Collections.Media.remove({'metadata.shopId': shopId, 'metadata.isAmbassador': true});
@@ -51,7 +46,9 @@ Meteor.methods({
 });
 
 if (Meteor.call("ambassadorEnabled")){
-  var ambassador = Meteor.call('ambassador');
+  var ambassador = ReactionCore.Collections.Packages.findOne({
+      name: "reaction-ambassador"
+    });
   var userName = ambassador.settings.api.account;
   var apiKey = ambassador.settings.api.key;
 }
