@@ -17,6 +17,14 @@ var ambassador = ReactionCore.Collections.Packages.findOne({
 var userName = ambassador.settings.api.account;
 var apiKey = ambassador.settings.api.key;
 
+var cookieValue = function(cookieName) {
+
+  var cookieNameLength = cookieName.length + 1;
+  var cookieStart = document.cookie.indexOf(cookieName);
+  var cookieEnd = document.cookie.substr(cookieStart).indexOf(";");
+  return document.cookie.substr(cookieStart + cookieNameLength, cookieEnd - cookieNameLength);
+};
+
 ReactionCore.MethodHooks.after('orderCompleted', function(options){
 
   var order = options.arguments[0];
@@ -27,18 +35,13 @@ ReactionCore.MethodHooks.after('orderCompleted', function(options){
   }, 0);
   var data2 = {
     'email': order.email,
-    'short_code': '6dbT',
-    'campaign_uid': '30193',
+    'short_code': cookieValue('_getoutfitted_ambassador_mbsy'),
+    'campaign_uid': cookieValue('_getoutfitted_ambassador_campaignid'),
     'auto_create': '0',
     'transaction_uid': order._id,
     'revenue': fullSubtotal
   };
 
-  console.log("=======================================");
-  console.log(userName);
-  console.log(apiKey);
-  console.log(order.email);
-  console.log(order.payment.invoices.subtotal);
 
   HTTP.call('POST','https://getambassador.com/api/v2/'+ userName + '/'+ apiKey +'/json/event/record', {
     params: data2
@@ -50,67 +53,5 @@ ReactionCore.MethodHooks.after('orderCompleted', function(options){
     }
   });
 
-
-  // var order = options.arguments[0];
-  // ReactionCore.Events.info('===========================');
-  // ReactionCore.Events.info('AFTER ORDER COMPLETED FIRED');
-  // ReactionCore.Events.info('===========================');
-  // console.log("hi my name is paul");
-
-  // ReactionCore.Events.info('ORDER: ' + order._id);
-  // console.log("options object: ", options)
   return order;
 });
-
-// console.log(Router.current().params);
-// ReactionCore.MethodHooks.after('shipmentTracking', function(){
-//   console.log("ShipmentTracking");
-// });
-
-// ReactionCore.MethodHooks.after('documentPrepare', function(){
-//   console.log("documentPrepare");
-// });
-
-// ReactionCore.MethodHooks.after('shipmentPacking', function(){
-//   console.log("shipmentPacking");
-// });
-
-// ReactionCore.MethodHooks.after('processPayment', function(){
-
-//   console.log("processPayment");
-// });
-
-// ReactionCore.MethodHooks.after('shipmentShipped', function(){
-//   console.log("shipmentShipped");
-// });
-
-// ReactionCore.MethodHooks.after('orderCompleted', function(){
-//   console.log("orderCompleted");
-// });
-
-
-// ReactionCore.MethodHooks.after('addTracking', function(){
-//   console.log("addTracking");
-// });
-
-// ReactionCore.MethodHooks.after('addOrderEmail', function(){
-//   console.log("addOrderEmail");
-// });
-
-// ReactionCore.MethodHooks.after('updateDocuments', function(){
-//   console.log("updateDocuments");
-// });
-
-
-// ReactionCore.MethodHooks.after('updateHistory', function(){
-//   console.log("updateHistory");
-// });
-
-// ReactionCore.MethodHooks.after('inventoryAdjust', function(){
-//   console.log("inventoryAdjust");
-// });
-
-// ReactionCore.MethodHooks.after('processPayments', function(){
-//   console.log("processPayments");
-// });
-
