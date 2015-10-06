@@ -1,3 +1,4 @@
+var Media  = ReactionCore.Collections.Media;
 Template.ambassadorPage.helpers({
   packageData: function() {
     return ReactionCore.Collections.Packages.findOne({
@@ -15,3 +16,5 @@ Template.ambassadorPage.helpers({
     }
   }
 });
+
+
