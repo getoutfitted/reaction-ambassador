@@ -19,6 +19,7 @@ Package.onUse(function(api, where){
   api.use("cfs:ui@0.1.3");
   api.use("iron:router@1.0.9");
 
+
   api.addFiles([
     'server/register.js',
     'server/methods/ambassador.js'

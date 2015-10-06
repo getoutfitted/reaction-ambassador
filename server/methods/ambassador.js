@@ -11,11 +11,45 @@ Meteor.methods({
   }
 });
 
+var ambassador = ReactionCore.Collections.Packages.findOne({
+    name: "reaction-ambassador"
+  });
+var userName = ambassador.settings.api.account;
+var apiKey = ambassador.settings.api.key;
+
 ReactionCore.MethodHooks.after('orderCompleted', function(options){
-  // var order = options.result;
+
   var order = options.arguments[0];
   console.log('Arguments:', order);
   console.log('invoice:', order.payment.invoices);
+  var fullSubtotal = _.reduce(order.payment.invoices, function(total, num) {
+    return total + (parseFloat(num.subtotal) - parseFloat(num.discounts));
+  }, 0);
+  var data2 = {
+    'email': order.email,
+    'short_code': '6dbT',
+    'campaign_uid': '30193',
+    'auto_create': '0',
+    'transaction_uid': order._id,
+    'revenue': fullSubtotal
+  };
+
+  console.log("=======================================");
+  console.log(userName);
+  console.log(apiKey);
+  console.log(order.email);
+  console.log(order.payment.invoices.subtotal);
+
+  HTTP.call('POST','https://getambassador.com/api/v2/'+ userName + '/'+ apiKey +'/json/event/record', {
+    params: data2
+  }, function(error, result){
+    if(error) {
+      console.log(error);
+    } else {
+      console.log(result);
+    }
+  });
+
 
   // var order = options.arguments[0];
   // ReactionCore.Events.info('===========================');
