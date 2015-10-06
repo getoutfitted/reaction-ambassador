@@ -16,7 +16,38 @@ Meteor.methods({
     check(shopId, String);
     // ReactionCore.Collections.Media.remove({'metadata.shopId': shopId, 'metadata.isAmbassador': true});
     // db.cfs.Media.filerecord.remove({'metadata.isAmbassador': true, 'metadata.shopId': shopId });
+  },
+  addRefererToAccounts: function(accountId, mbsy, campaignId, mbsy_source){
+    check(accountId, String);
+    check(mbsy, String);
+    check(campaignId, String);
+    check(mbsy_source, String);
+    if(this.userId !== accountId){
+      throw new Meteor.Error(403, "Access Denied");
+    }
+
+    // if(currentUserId !== accountId)
+    //   return;
+
+    ReactionCore.Collections.Accounts.update({_id: accountId}, {
+      $set: {
+        ambassador: {
+          mbsy: mbsy,
+          campaignId: campaignId,
+          mbsy_source: mbsy_source
+        }
+      }
+    });
+  },
+  getAmbassadorCookiesInfo : function(accountId){
+    check(accountId, String);
+    if(this.userId !== accountId){
+      throw new Meteor.Error(403, "Access Denied");
+    }
+    console.log("past throw")
+    return ReactionCore.Collections.Accounts.findOne({_id: accountId}).ambassador;
   }
+
 });
 
 if (Meteor.call("ambassadorEnabled")){
@@ -25,26 +56,22 @@ if (Meteor.call("ambassadorEnabled")){
   var apiKey = ambassador.settings.api.key;
 }
 
-var cookieValue = function(cookieName) {
 
-  var cookieNameLength = cookieName.length + 1;
-  var cookieStart = document.cookie.indexOf(cookieName);
-  var cookieEnd = document.cookie.substr(cookieStart).indexOf(";");
-  return document.cookie.substr(cookieStart + cookieNameLength, cookieEnd - cookieNameLength);
-};
 
 ReactionCore.MethodHooks.after('orderCompleted', function(options){
-
   var order = options.arguments[0];
-  console.log('Arguments:', order);
-  console.log('invoice:', order.payment.invoices);
   var fullSubtotal = _.reduce(order.payment.invoices, function(total, num) {
     return total + (parseFloat(num.subtotal) - parseFloat(num.discounts));
   }, 0);
-  var data2 = {
+  var accountId = order.userId;
+  var cookieInfo = Meteor.call('getAmbassadorCookiesInfo', accountId);
+  if (typeof(order.email) === 'undefined') {
+    order.email = "tester" + _.random(1, 1000000) + "@example.com";
+  }
+  var data = {
     'email': order.email,
-    'short_code': cookieValue('_getoutfitted_ambassador_mbsy'),
-    'campaign_uid': cookieValue('_getoutfitted_ambassador_campaignid'),
+    'short_code': cookieInfo.mbsy,
+    'campaign_uid': cookieInfo.campaignId,
     'auto_create': '0',
     'transaction_uid': order._id,
     'revenue': fullSubtotal
@@ -52,7 +79,7 @@ ReactionCore.MethodHooks.after('orderCompleted', function(options){
 
 
   HTTP.call('POST','https://getambassador.com/api/v2/'+ userName + '/'+ apiKey +'/json/event/record', {
-    params: data2
+    params: data
   }, function(error, result){
     if(error) {
       console.log(error);

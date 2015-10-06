@@ -1,3 +1,26 @@
+ReactionCore.Schemas.Ambassador = new SimpleSchema({
+  campaignId: {
+    type: String,
+    optional: true
+  },
+  mbsy: {
+    type: String,
+    optional: true
+  },
+  mbsy_source: {
+    type: String,
+    optional: true
+  },
+  referralClickDate: {
+    type: Date,
+    optional: true
+  },
+  expirationalDate: {
+    type: Date,
+    optional: true
+  }
+});
+
 ReactionCore.Schemas.AmbassadorPackageConfig = new SimpleSchema([
   ReactionCore.Schemas.PackageConfig, {
     "settings.api.account": {
@@ -54,3 +77,12 @@ ReactionCore.Schemas.AmbassadorPackageConfig = new SimpleSchema([
     }
   }
 ]);
+
+ReactionCore.Schemas.Accounts = new SimpleSchema([ReactionCore.Schemas.Accounts, {
+  ambassador: {
+    type: ReactionCore.Schemas.Ambassador,
+    optional: true
+  }
+}]);
+
+ReactionCore.Collections.Accounts.attachSchema(ReactionCore.Schemas.Accounts);
