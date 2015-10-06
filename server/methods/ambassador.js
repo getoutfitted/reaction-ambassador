@@ -1,8 +1,16 @@
 Meteor.methods({
   ambassadorEnabled: function(){
+    var ambassador =  ReactionCore.Collections.Packages.findOne({
+      name: "reaction-ambassador"
+    });
+    if (ambassador) {
+      return ambassador.enabled;
+    }
+  },
+  ambassador: function(){
     return ReactionCore.Collections.Packages.findOne({
       name: "reaction-ambassador"
-    }).enabled;
+    });
   },
   previousImages: function(shopId){
     check(shopId, String);
@@ -11,11 +19,11 @@ Meteor.methods({
   }
 });
 
-var ambassador = ReactionCore.Collections.Packages.findOne({
-    name: "reaction-ambassador"
-  });
-var userName = ambassador.settings.api.account;
-var apiKey = ambassador.settings.api.key;
+if (Meteor.call("ambassadorEnabled")){
+  var ambassador = Meteor.call('ambassador');
+  var userName = ambassador.settings.api.account;
+  var apiKey = ambassador.settings.api.key;
+}
 
 var cookieValue = function(cookieName) {
 
