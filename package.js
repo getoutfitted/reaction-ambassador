@@ -5,6 +5,10 @@ Package.describe({
   // git: "https://github.com/reactioncommerce/reaction-paypal.git"
 });
 
+Npm.depends({
+  'faker': "3.0.1"
+});
+
 Package.onUse(function(api, where){
   api.versionsFrom('METEOR@1.2');
   api.use('meteor-platform');
@@ -43,5 +47,21 @@ Package.onUse(function(api, where){
   api.addAssets([
     'client/templates/ambassadorPage/ambassadorPage.less'
   ], 'server');
+});
+
+Package.onTest(function(api) {
+  api.use('sanjo:jasmine@0.19.0');
+  api.use('underscore');
+  api.use("dburles:factory@0.3.10");
+  api.use('velocity:html-reporter@0.9.0');
+  api.use('velocity:console-reporter@0.1.3');
+
+  api.use('reactioncommerce:core');
+  api.use('reactioncommerce:bootstrap-theme');
+  api.use('getoutfitted:reaction-ambassador');
+  api.addFiles('tests/jasmine/server/integration/methods.js', 'server');
+  api.addFiles('tests/factories/ambassadorPackage.js', 'server');
+  api.addFiles('tests/lib/faker.js', 'server');
+
 
 });
