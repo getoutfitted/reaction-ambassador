@@ -42,10 +42,12 @@ var ambassadorParams = {
         var time = expireTime.getTime();
         time += 180 * 24* 60 * 60 * 1000;
         expireTime.setTime(time);
-        // document.cookie = "_getoutfitted_ambassador_object=" + JSON.stringify(pathParams) + ";expires=" +expireTime.toUTCString();
+
         document.cookie = "_getoutfitted_ambassador_campaignid=" + pathParams.campaignid + ";expires=" +expireTime.toUTCString();
-        document.cookie = "_getoutfitted_ambassador_mbsy=" + pathParams.mbsy+ ";expires=" +expireTime.toUTCString();;
-        document.cookie = "_getoutfitted_ambassador_mbsy_source=" + pathParams.mbsy_source+ ";expires=" +expireTime.toUTCString();;
+        document.cookie = "_getoutfitted_ambassador_mbsy=" + pathParams.mbsy+ ";expires=" +expireTime.toUTCString();
+        document.cookie = "_getoutfitted_ambassador_mbsy_source=" + pathParams.mbsy_source+ ";expires=" +expireTime.toUTCString();
+        document.cookie = "_getoutfitted_ambassador_referral_expiration=" + expireTime.toUTCString()+ ";expires=" +expireTime.toUTCString();
+
           Session.set('ambassador', pathParams);
         }
     }

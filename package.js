@@ -30,7 +30,8 @@ Package.onUse(function(api, where){
     'client/templates/dashboard/dashboard.html',
     'client/templates/dashboard/dashboard.js',
     'client/templates/ambassadorPage/ambassadorPage.html',
-    'client/templates/ambassadorPage/ambassadorPage.js'
+    'client/templates/ambassadorPage/ambassadorPage.js',
+    'client/templates/checkout/completed/completed.js'
   ], 'client');
   api.addFiles([
     'common/router.js',
