@@ -13,4 +13,26 @@ describe('getoutfitted:reaction-ambassador methods', function() {
       expect(Meteor.call('ambassadorEnabled')).toEqual(true);
     });
   });
+
+  describe('addRefererToAccounts', function() {
+    beforeEach(function() {
+      return ReactionCore.Collections.Accounts.remove({});
+    });
+    it('should update accounts when all arguments are valid', function() {
+      account = Factory.create('account');
+      spyOn(ReactionCore.Collections.Accounts, 'update');
+      var accountId = account.userId;
+      var mbsy = "A1234";
+      var campaignId = "12345";
+      var mbsy_source = "1234_1234_1234_1234";
+      var expireTime = new Date();
+      var time = expireTime.getTime();
+      time += 180 * 24* 60 * 60 * 1000;
+      expireTime.setTime(time);
+      var expirationDate = JSON.stringify(expireTime.toUTCString());
+      spyOn(Meteor, 'userId').and.returnValue(accountId);
+      Meteor.call('addRefererToAccounts', accountId, mbsy, campaignId, mbsy_source, expirationDate);
+      expect(ReactionCore.Collections.Accounts.update).toHaveBeenCalled();
+    });
+  });
 });
