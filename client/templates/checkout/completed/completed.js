@@ -10,13 +10,13 @@ Template.cartCompleted.onRendered(function(){
   var mbsy= cookieValue('_getoutfitted_ambassador_mbsy');
   var campaignId = cookieValue('_getoutfitted_ambassador_campaignid');
   var mbsy_source = cookieValue('_getoutfitted_ambassador_mbsy_source');
+  var expirationDate = cookieValue('_getoutfitted_ambassador_referral_expiration');
   var accountId = Meteor.userId();
 
-  Meteor.call('addRefererToAccounts', accountId, mbsy, campaignId, mbsy_source, function(error, result){
+  Meteor.call('addRefererToAccounts', accountId, mbsy, campaignId, mbsy_source, expirationDate, function(error, result){
     if (error) {
-      console.log("error", error);
-    } else {
-      console.log("success");
+      ReactionCore.Events.error("Did not conver cookies to Account" , error);
+      return error;
     }
   });
 });

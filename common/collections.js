@@ -15,7 +15,7 @@ ReactionCore.Schemas.Ambassador = new SimpleSchema({
     type: Date,
     optional: true
   },
-  expirationalDate: {
+  expirationDate: {
     type: Date,
     optional: true
   }

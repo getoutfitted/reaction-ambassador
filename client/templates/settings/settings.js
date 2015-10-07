@@ -9,7 +9,11 @@ Template.ambassadorSettings.helpers({
   },
   imageName: function(){
     var shopId = ReactionCore.getShopId();
-    return ReactionCore.Collections.Media.findOne({'metadata.isAmbassador': true, 'metadata.shopId': shopId}, {sort: { uploadedAt: -1}}).original.name;
+    if (ReactionCore.Collections.Media.findOne({'metadata.isAmbassador': true, 'metadata.shopId': shopId})) {
+      return ReactionCore.Collections.Media.findOne({'metadata.isAmbassador': true, 'metadata.shopId': shopId}, {sort: { uploadedAt: -1}}).original.name;
+    } else {
+      return ;
+    }
   },
   imageBase: function(){
     var shopId = ReactionCore.getShopId();

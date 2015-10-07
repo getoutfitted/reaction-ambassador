@@ -46,6 +46,8 @@ var ambassadorParams = {
         document.cookie = "_getoutfitted_ambassador_campaignid=" + pathParams.campaignid + ";expires=" +expireTime.toUTCString();
         document.cookie = "_getoutfitted_ambassador_mbsy=" + pathParams.mbsy+ ";expires=" +expireTime.toUTCString();
         document.cookie = "_getoutfitted_ambassador_mbsy_source=" + pathParams.mbsy_source+ ";expires=" +expireTime.toUTCString();
+        document.cookie = "_getoutfitted_ambassador_referral_expiration=" + expireTime.toUTCString()+ ";expires=" +expireTime.toUTCString();
+
           Session.set('ambassador', pathParams);
         }
     }
