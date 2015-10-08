@@ -4,7 +4,11 @@ Template.cartCompleted.onRendered(function(){
     var cookieNameLength = cookieName.length + 1;
     var cookieStart = document.cookie.indexOf(cookieName);
     var cookieEnd = document.cookie.substr(cookieStart).indexOf(";");
-    return document.cookie.substr(cookieStart + cookieNameLength, cookieEnd - cookieNameLength);
+    if (cookieEnd === -1) {
+      return document.cookie.substr(cookieStart + cookieNameLength);
+    } else {
+      return document.cookie.substr(cookieStart + cookieNameLength, cookieEnd - cookieNameLength);
+    }
   };
 
   var mbsy= cookieValue('_getoutfitted_ambassador_mbsy');
