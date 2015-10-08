@@ -21,17 +21,28 @@ Factory.define('packages', ReactionCore.Collections.Packages, {
       "container" : "reaction-ambassador",
       "template" : "ambassadorSettings"
     }
-  ],
+  ]
+
 });
 
-Factory.define('orderWithInvoice', ReactionCore.Collections.Products, Factory.extend('order', {
-      "invoices" : [
-      {
-        "shipping" : 0,
-        "subtotal" : "99.95",
-        "taxes" : "0.00",
-        "discounts" : "0.00",
-        "total" : "99.95"
+Factory.define('ambassadorPackageWithSettings', ReactionCore.Collections.Packages, Factory.extend('packages', {
+  "settings" : {
+      "public" : {
+        "title" : "Page Title",
+        "domain" : "www.google.com",
+        "header" : "test",
+        "body" : "test"
+      },
+      "api" : {
+        "account" : "getoutfitted",
+        "key" : "0a3a49c73581bf6189f4c2375b15802e"
       }
-    ]
+    },
+    "ambassador" : {
+    "mbsy" : "TEST",
+    "campaignId" : "12345",
+    "mbsy_source" : "1234_1234_1234_1234",
+    "expirationDate" : "Tue, 05 Apr 2016 18:11:41 GMT"
+  }
 }));
+
