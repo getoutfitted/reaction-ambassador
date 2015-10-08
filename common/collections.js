@@ -16,7 +16,7 @@ ReactionCore.Schemas.Ambassador = new SimpleSchema({
     optional: true
   },
   expirationDate: {
-    type: Date,
+    type: String,
     optional: true
   }
 });
@@ -78,11 +78,11 @@ ReactionCore.Schemas.AmbassadorPackageConfig = new SimpleSchema([
   }
 ]);
 
-ReactionCore.Schemas.Accounts = new SimpleSchema([ReactionCore.Schemas.Accounts, {
+ReactionCore.Schemas.AmbassadorAccounts = new SimpleSchema([ReactionCore.Schemas.Accounts, {
   ambassador: {
     type: ReactionCore.Schemas.Ambassador,
     optional: true
   }
 }]);
 
-ReactionCore.Collections.Accounts.attachSchema(ReactionCore.Schemas.Accounts);
+ReactionCore.Collections.Accounts.attachSchema(ReactionCore.Schemas.AmbassadorAccounts);

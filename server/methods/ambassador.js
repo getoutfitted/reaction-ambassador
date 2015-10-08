@@ -18,7 +18,8 @@ Meteor.methods({
     check(campaignId, String);
     check(mbsy_source, String);
     check(expirationDate, String);
-    if(this.userId !== accountId){
+
+    if(Meteor.userId() !== accountId){
       throw new Meteor.Error(403, "Access Denied");
     }
 
