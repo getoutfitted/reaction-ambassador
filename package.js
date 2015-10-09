@@ -1,7 +1,7 @@
 Package.describe({
   summary: 'Reaction Ambassador - Ambassador brand referral program for Reaction Commerce',
   name: 'getoutfitted:reaction-ambassador',
-  version: '0.2.0'
+  version: '0.3.0'
   // git: "https://github.com/reactioncommerce/reaction-paypal.git"
 });
 
@@ -9,7 +9,7 @@ Npm.depends({
   'faker': '3.0.1'
 });
 
-Package.onUse(function (api, where) {
+Package.onUse(function (api) {
   api.versionsFrom('METEOR@1.2');
   api.use('meteor-platform');
   api.use('less');
@@ -40,10 +40,10 @@ Package.onUse(function (api, where) {
   ], 'client');
   api.addFiles([
     'common/router.js',
-    'common/collections.js',
+    'common/collections.js'
   ], ['client', 'server']);
   api.addAssets([
-    'images/ambassador.png',
+    'images/ambassador.png'
   ],  'client');
   api.addAssets([
     'client/templates/ambassadorPage/ambassadorPage.less'
