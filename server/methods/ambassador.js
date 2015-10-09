@@ -46,7 +46,9 @@ var expirationVerification = function(stringDate){
   }
 };
 
-ReactionCore.MethodHooks.after('orderCompleted', function(options){
+ReactionCore.MethodHooks.after('orders/orderCompleted', function(options){
+  console.log('============================================')
+  console.log('we made it into the hook')
   var ambassador = ReactionCore.Collections.Packages.findOne({
       name: "reaction-ambassador"
     });
@@ -56,10 +58,12 @@ ReactionCore.MethodHooks.after('orderCompleted', function(options){
   var validDate = expirationVerification(cookieInfo.expirationDate);
 
   if (ambassador.enabled && order.email && validDate) {
+      console.log('============================================')
+  console.log('we made it into the firing')
     var userName = ambassador.settings.api.account;
     var apiKey = ambassador.settings.api.key;
-    var fullSubtotal = _.reduce(order.payment.invoices, function(total, num) {
-      return total + (parseFloat(num.subtotal) - parseFloat(num.discounts));
+    var fullSubtotal = _.reduce(order.billing, function(total, num) {
+      return total + (parseFloat(num.invoice.subtotal) - parseFloat(num.invoice.discounts));
     }, 0);
 
     var data = {
@@ -75,10 +79,13 @@ ReactionCore.MethodHooks.after('orderCompleted', function(options){
     HTTP.call('POST','https://getambassador.com/api/v2/'+ userName + '/'+ apiKey +'/json/event/record', {
       params: data
     }, function(error, result){
+      console.log('Error?', error)
       if(error) {
-        ReactionCore.Events.error("Failed to record Ambassador event for ambassador with code" + cookieInfo.mbsy, error);
+        ReactionCore.Log.error("Failed to record Ambassador event for ambassador with code" + cookieInfo.mbsy, error);
         return error;
       }
+            console.log('============================================')
+  console.log('we made it hit the api')
     });
   }
 

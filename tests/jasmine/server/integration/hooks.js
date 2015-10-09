@@ -4,6 +4,8 @@ describe('getoutfitted:reaction-ambassador hooks', function() {
       return ReactionCore.Collections.Orders.remove({});
     });
 
+
+
     // xit('should call the ambassador on successful completion oforder', function() {
     //   spyOn(HTTP, 'call');
     //   var order = Factory.create('order');
