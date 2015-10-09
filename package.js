@@ -22,7 +22,8 @@ Package.onUse(function (api) {
   api.use('cfs:gridfs@0.0.33');
   api.use('cfs:filesystem@0.1.2');
   api.use('cfs:ui@0.1.3');
-  api.use('iron:router@ 1.0.11');
+  // api.use('iron:core@=1.0.8');
+  api.use('iron:router@1.0.12');
 
 
   api.addFiles([

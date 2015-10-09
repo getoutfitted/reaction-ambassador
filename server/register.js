@@ -9,7 +9,6 @@ ReactionCore.registerPackage({
       label: 'Ambassador',
       route: 'dashboard/ambassador',
       description: 'Ambassador brand referral for Reaction Commerce',
-      route: 'dashboard/ambassador',
       icon: 'fa fa-flag',
       cycle: '3',
       container: 'reaction-ambassador'
