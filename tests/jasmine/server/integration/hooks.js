@@ -1,10 +1,8 @@
-describe('getoutfitted:reaction-ambassador hooks', function() {
-  describe('on OrderCompleted', function() {
-    beforeEach(function() {
+describe('getoutfitted:reaction-ambassador hooks', function () {
+  describe('on OrderCompleted', function () {
+    beforeEach(function () {
       return ReactionCore.Collections.Orders.remove({});
     });
-
-
 
     // xit('should call the ambassador on successful completion oforder', function() {
     //   spyOn(HTTP, 'call');
