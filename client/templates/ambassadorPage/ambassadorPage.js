@@ -1,4 +1,4 @@
-var Media  = ReactionCore.Collections.Media;
+let Media = ReactionCore.Collections.Media;
 Template.ambassadorPage.helpers({
   packageData: function() {
     return ReactionCore.Collections.Packages.findOne({
@@ -6,7 +6,7 @@ Template.ambassadorPage.helpers({
     }).settings.public;
   },
   contactInfo: function(){
-    var contact = ReactionCore.Collections.Packages.findOne({
+    let contact = ReactionCore.Collections.Packages.findOne({
       name: "reaction-ambassador"
     }).settings.public.contact;
     if (contact.email && contact.phone){

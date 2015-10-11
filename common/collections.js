@@ -7,7 +7,7 @@ ReactionCore.Schemas.Ambassador = new SimpleSchema({
     type: String,
     optional: true
   },
-  mbsy_source: {
+  mbsySource: {
     type: String,
     optional: true
   },
@@ -23,56 +23,56 @@ ReactionCore.Schemas.Ambassador = new SimpleSchema({
 
 ReactionCore.Schemas.AmbassadorPackageConfig = new SimpleSchema([
   ReactionCore.Schemas.PackageConfig, {
-    "settings.api.account": {
+    'settings.api.account': {
       type: String,
-      label: "Ambassador Account Name",
+      label: 'Ambassador Account Name',
       optional: true
     },
-    "settings.api.key": {
+    'settings.api.key': {
       type: String,
-      label: "Ambassador API KEY",
+      label: 'Ambassador API KEY',
       optional: true
     },
-    "settings.public.title": {
+    'settings.public.title': {
       type: String,
-      label: "Title for Embedded Link",
+      label: 'Title for Embedded Link',
       optional: false
     },
-    "settings.public.header": {
+    'settings.public.header': {
       type: String,
-      label: "Main Page Header (Required)",
+      label: 'Main Page Header (Required)',
       optional: false
     },
-    "settings.public.body": {
+    'settings.public.body': {
       type: String,
-      label: "First Paragraph on Main Page (Required)",
+      label: 'First Paragraph on Main Page (Required)',
       optional: false
     },
-    "settings.public.domain": {
+    'settings.public.domain': {
       type: String,
-      label: "Url for Ambassador signup",
+      label: 'Url for Ambassador signup',
       optional: false
     },
-    "settings.public.body2": {
+    'settings.public.body2': {
       type: String,
-      label: "Second Paragraph (Optional)",
+      label: 'Second Paragraph (Optional)',
       optional: true
     },
-    "settings.public.body3": {
+    'settings.public.body3': {
       type: String,
-      label: "Third Paragraph (Optional)",
+      label: 'Third Paragraph (Optional)',
       optional: true
     },
-    "settings.public.contact.email": {
+    'settings.public.contact.email': {
       type: String,
       regEx: SimpleSchema.RegEx.Email,
-      label: "Contact Email",
+      label: 'Contact Email',
       optional: true
     },
-    "settings.public.contact.phone": {
+    'settings.public.contact.phone': {
       type: String,
       regEx: /^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/,
-      label: "Contact Phone Number",
+      label: 'Contact Phone Number',
       optional: true
     }
   }
