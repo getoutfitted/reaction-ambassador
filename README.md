@@ -6,7 +6,7 @@ Ambassador referral program for Reaction Commerce.
 This is a WIP Meteor package for Reaction Commerce.
 
 ```bash
-meteor add getoutfitted:reaction-zopim
+meteor add getoutfitted:reaction-ambassador
 ```
 
 Pull requests are celebrated, feedback encouraged.
