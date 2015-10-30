@@ -1,11 +1,10 @@
-let Media = ReactionCore.Collections.Media;
 Template.ambassadorPage.helpers({
-  packageData: function() {
+  packageData: function () {
     return ReactionCore.Collections.Packages.findOne({
       name: "reaction-ambassador"
     }).settings.public;
   },
-  contactInfo: function(){
+  contactInfo: function (){
     let contact = ReactionCore.Collections.Packages.findOne({
       name: "reaction-ambassador"
     }).settings.public.contact;

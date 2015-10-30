@@ -45,12 +45,12 @@ function expirationVerification(stringDate) {
     return false;
   }
 }
-
-ReactionCore.MethodHooks.after('orders/orderCompleted', function (options) {
+ReactionCore.MethodHooks.after('orders/capturePayments', function (options) {
   let ambassador = ReactionCore.Collections.Packages.findOne({
     name: 'reaction-ambassador'
   });
-  let order = options.arguments[0];
+  let orderId = options.arguments[0];
+  let order = ReactionCore.Collections.Orders.findOne({_id: orderId});
   let accountId = order.userId;
   let cookieInfo = ReactionCore.Collections.Accounts.findOne({_id: accountId}).ambassador;
   let validDate = expirationVerification(cookieInfo.expirationDate);
@@ -72,7 +72,7 @@ ReactionCore.MethodHooks.after('orders/orderCompleted', function (options) {
     };
 
 
-    HTTP.call('POST','https://getambassador.com/api/v2/' + userName + '/' + apiKey + '/json/event/record', {
+    HTTP.call('POST', 'https://getambassador.com/api/v2/' + userName + '/' + apiKey + '/json/event/record', {
       params: data
     }, function (error, result) {
       if (error) {
@@ -83,3 +83,40 @@ ReactionCore.MethodHooks.after('orders/orderCompleted', function (options) {
     return order;
   }
 });
+// ReactionCore.MethodHooks.after('orders/orderCompleted', function (options) {
+//   let ambassador = ReactionCore.Collections.Packages.findOne({
+//     name: 'reaction-ambassador'
+//   });
+//   let order = options.arguments[0];
+//   let accountId = order.userId;
+//   let cookieInfo = ReactionCore.Collections.Accounts.findOne({_id: accountId}).ambassador;
+//   let validDate = expirationVerification(cookieInfo.expirationDate);
+
+//   if (ambassador.enabled && order.email && validDate) {
+//     let userName = ambassador.settings.api.account;
+//     let apiKey = ambassador.settings.api.key;
+//     let fullSubtotal = _.reduce(order.billing, function (total, num) {
+//       return total + (parseFloat(num.invoice.subtotal) - parseFloat(num.invoice.discounts));
+//     }, 0);
+
+//     let data = {
+//       email: order.email,
+//       short_code: cookieInfo.mbsy,
+//       campaign_uid: cookieInfo.campaignId,
+//       auto_create: 0,
+//       transaction_uid: order._id,
+//       revenue: fullSubtotal
+//     };
+
+
+//     HTTP.call('POST','https://getambassador.com/api/v2/' + userName + '/' + apiKey + '/json/event/record', {
+//       params: data
+//     }, function (error, result) {
+//       if (error) {
+//         ReactionCore.Log.error('Failed to record Ambassador event for ambassador with code' + cookieInfo.mbsy, error);
+//         return error;
+//       }
+//     });
+//     return order;
+//   }
+// });

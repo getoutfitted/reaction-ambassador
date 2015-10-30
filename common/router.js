@@ -29,14 +29,14 @@ Router.map(function () {
     controller: AmbassadorController,
     path: '/ambassador/:customTitle',
     template: 'ambassadorPage'
-  })
+  });
 });
 
 let ambassadorParams = {
   check: function () {
     let pathParams = this.params.query;
     if (! _.isEmpty(pathParams)) {
-      if (_.intersection(_.keys(pathParams), ['campaignid', 'mbsy', 'mbsySource']).length === 3) {
+      if (_.intersection(_.keys(pathParams), ['campaignid', 'mbsy', 'mbsy_source']).length === 3) {
         let expireTime = new Date();
         let time = expireTime.getTime();
         time += 180 * 24 * 60 * 60 * 1000;
@@ -44,7 +44,7 @@ let ambassadorParams = {
 
         document.cookie = '_getoutfitted_ambassador_campaignid=' + pathParams.campaignid + ';expires=' + expireTime.toUTCString();
         document.cookie = '_getoutfitted_ambassador_mbsy=' + pathParams.mbsy + ';expires=' + expireTime.toUTCString();
-        document.cookie = '_getoutfitted_ambassador_mbsy_source=' + pathParams.mbsySource + ';expires=' + expireTime.toUTCString();
+        document.cookie = '_getoutfitted_ambassador_mbsy_source=' + pathParams.mbsy_source + ';expires=' + expireTime.toUTCString();
         document.cookie = '_getoutfitted_ambassador_referral_expiration=' + expireTime.toUTCString() + ';expires=' + expireTime.toUTCString();
       }
     }
