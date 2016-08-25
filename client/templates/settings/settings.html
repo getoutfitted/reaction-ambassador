@@ -1,8 +1,8 @@
 <template name="ambassadorSettings">
   <div class="panel-body">
     {{#autoForm
-        collection="ReactionCore.Collections.Packages"
-        schema="ReactionCore.Schemas.AmbassadorPackageConfig"
+        collection=Collections.Packages
+        schema=AmbassadorPackageConfig
         doc=packageData
         type="update"
         id="ambassador-update-form"

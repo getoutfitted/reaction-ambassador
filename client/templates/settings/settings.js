@@ -1,10 +1,20 @@
+import { Template } from 'meteor/templating';
+import { Reaction } from '/client/api';
+import { Packages } from '/lib/collections';
+import { AmbassadorPackageConfig } from '../../../lib/collections/schemas'
+
+import './settings.html';
 let Media = ReactionCore.Collections.Media;
 
 
 Template.ambassadorSettings.helpers({
+  AmbassadorPackageConfig() {
+    return AmbassadorPackageConfig;
+  },
   packageData: function () {
-    return ReactionCore.Collections.Packages.findOne({
-      name: 'reaction-ambassador'
+    return Packages.findOne({
+      name: 'reaction-ambassador',
+      shopId: Reaction.getShopId()
     });
   },
   imageName: function () {
