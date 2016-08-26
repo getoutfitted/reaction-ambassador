@@ -1,4 +1,4 @@
-AmbassadorController = ShopController.extend({
+  AmbassadorController = ShopController.extend({
   onBeforeAction: function () {
     let ambassador = ReactionCore.Collections.Packages.findOne({
       name: 'reaction-ambassador'
