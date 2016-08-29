@@ -12,31 +12,9 @@
       Don't have a Ambassador account? <a href="https://getambassador.com/signup/" target="_blank">Get one here.</a>
     </div>
     <p>Ambassador Account Setup</p>
-    {{>afQuickField  name='settings.public.title'}}
     {{>afQuickField  name='settings.api.account'}}
-    {{>afQuickField  name='settings.api.key' type='password'}}
+    {{>afQuickField  name='settings.api.key'}}
     {{>afQuickField  name='settings.public.domain'}}
-
-<!--     <hr>
-    <p>Ambassador Page Content</p>
-    {{>afQuickField  name='settings.public.header'}}
-    {{>afQuickField  type='textarea' rows="5" name='settings.public.body'}}
-    {{>afQuickField  type='textarea' rows="5" name='settings.public.body2'}}
-    {{>afQuickField  type='textarea' rows="5" name='settings.public.body3'}}
-    {{>afQuickField name='settings.public.contact.email'}}
-    {{>afQuickField name='settings.public.contact.phone'}}
-    {{#if imageName}}
-
-        <p>Currently loaded image : {{imageName}}</p>
-    {{/if}}
-        {{#each imageBase}}
-      <div>
-        <a href="{{this.url}}" target="_blank"><img src="{{this.url store='thumbs' uploading='/images/uploading.gif' storing='/images/storing.gif'}}" alt="" class="thumbnail" /></a>
-      </div>
-    {{/each}}
-
-    <input type=file name="ambassadorFile" id="ambassadorFile"> -->
-
 
     <button type="submit" class="btn btn-primary pull-right">Save Changes</button>
       {{/autoForm}}
