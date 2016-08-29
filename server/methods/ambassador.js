@@ -1,32 +1,42 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
-import { Reaction } from '/server/api';
+import { Reaction, Logger } from '/server/api';
 import { _ } from 'meteor/underscore';
 
-import { Packages, Accounts } from '/lib/collections';
+import { Packages, Accounts, Orders } from '/lib/collections';
+
+import { createClient } from 'mbsy';
+
+
+function beforeExpiration(expirationString) {
+  let expirationDate = new Date(expirationString);
+  let todayDate = new Date();
+  if (expirationDate >= todayDate) {
+    return true;
+  } else {
+    return false;
+  }
+}
+function ambassadorEnabled() {
+  const ambassador =  Packages.findOne({
+    name: 'reaction-ambassador',
+    shopId: Reaction.getShopId()
+  });
+  if (ambassador) {
+    return ambassador.enabled;
+  }
+}
+
 Meteor.methods({
   ambassadorEnabled: function () {
-    let ambassador =  Packages.findOne({
-      name: 'reaction-ambassador',
-      shopId: Reaction.getShopId()
-    });
-    if (ambassador) {
-      return ambassador.enabled;
-    }
+    ambassadorEnabled()
   },
-  // addRefererToAccounts: function (accountId, mbsy, campaignId, mbsySource, expirationDate) {
-    // check(accountId, String);
-    // check(mbsy, String);
-    // check(campaignId, String);
-    // check(mbsySource, String);
-    // check(expirationDate, String);
-  addRefererToAccounts: function (ambassador) {
+  'ambassador/addRefererToAccounts': function (ambassador) {
     check(ambassador, {
       campaignId: String,
       mbsy: String,
       mbsySource: String
     })
-    console.log('user', this.userId);
     let expireTime = new Date();
     let time = expireTime.getTime();
     time += 180 * 24 * 60 * 60 * 1000;
@@ -44,89 +54,47 @@ Meteor.methods({
       }
     });
   }
+  // 'ambassador/verifyAndSendAmbassadorDetails': function (orderId) {
+  //   check(orderId, String)
+  //   const order = Orders.findOne(orderId);
+  //   const account = Accounts.findOne({
+  //     _id: order.userId,
+  //     ambassador: {
+  //       $exists: true
+  //     }
+  //   });
+  //   const ambassadorPackage =  Packages.findOne({
+  //     name: 'reaction-ambassador',
+  //     shopId: Reaction.getShopId()
+  //   });
+  //   if (account
+  //       && ambassadorPackage
+  //       && ambassadorPackage.enabled
+  //       && ambassadorPackage.settings
+  //       && ambassadorPackage.settings.api
+  //       && beforeExpiration(account.ambassador.expirationDate)) {
+  //       const api = ambassadorPackage.settings.api;
+  //       const Mbsy = createClient(api.account, api.key);
+  //       if (order) {
+  //         const invoice = order.billing[0].invoice
+  //         const ambassadorReportableRevenue = invoice.subtotal - invoice.discounts;
+  //         Mbsy.Event.record({
+  //           email: order.email,
+  //           campaign_uid: account.ambassador.campaignId,
+  //           short_code: account.ambassador.mbsy,
+  //           revenue: ambassadorReportableRevenue,
+  //           auto_create: 0,
+  //           transaction_uid: order._id,
+  //         }, function (err, res) {
+  //           if (err) {
+  //             Logger.error('Ambassaodor encountered an Error', err)
+  //           } else {
+  //             Logger.Info()
+  //           }
+  //         });
+  //       }
+  //   } else {
+  //     Logger.warn(`Ambassador settings are missing. Data for ${}`);
+  //   }
+  // }
 });
-
-// function expirationVerification(stringDate) {
-//   let expirationDate = new Date(stringDate);
-//   let todayDate = new Date();
-//   if (expirationDate >= todayDate) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// }
-// ReactionCore.MethodHooks.after('orders/capturePayments', function (options) {
-//   let ambassador = ReactionCore.Collections.Packages.findOne({
-//     name: 'reaction-ambassador'
-//   });
-//   let orderId = options.arguments[0];
-//   let order = ReactionCore.Collections.Orders.findOne({_id: orderId});
-//   let accountId = order.userId;
-//   let cookieInfo = ReactionCore.Collections.Accounts.findOne({_id: accountId}).ambassador;
-//   let validDate = expirationVerification(cookieInfo.expirationDate);
-
-//   if (ambassador.enabled && order.email && validDate) {
-//     let userName = ambassador.settings.api.account;
-//     let apiKey = ambassador.settings.api.key;
-//     let fullSubtotal = _.reduce(order.billing, function (total, num) {
-//       return total + (parseFloat(num.invoice.subtotal) - parseFloat(num.invoice.discounts));
-//     }, 0);
-
-//     let data = {
-//       email: order.email,
-//       short_code: cookieInfo.mbsy,
-//       campaign_uid: cookieInfo.campaignId,
-//       auto_create: 0,
-//       transaction_uid: order._id,
-//       revenue: fullSubtotal
-//     };
-
-
-//     HTTP.call('POST', 'https://getambassador.com/api/v2/' + userName + '/' + apiKey + '/json/event/record', {
-//       params: data
-//     }, function (error, result) {
-//       if (error) {
-//         ReactionCore.Log.error('Failed to record Ambassador event for ambassador with code' + cookieInfo.mbsy, error);
-//         return error;
-//       }
-//     });
-//     return order;
-//   }
-// });
-// ReactionCore.MethodHooks.after('orders/orderCompleted', function (options) {
-//   let ambassador = ReactionCore.Collections.Packages.findOne({
-//     name: 'reaction-ambassador'
-//   });
-//   let order = options.arguments[0];
-//   let accountId = order.userId;
-//   let cookieInfo = ReactionCore.Collections.Accounts.findOne({_id: accountId}).ambassador;
-//   let validDate = expirationVerification(cookieInfo.expirationDate);
-
-//   if (ambassador.enabled && order.email && validDate) {
-//     let userName = ambassador.settings.api.account;
-//     let apiKey = ambassador.settings.api.key;
-//     let fullSubtotal = _.reduce(order.billing, function (total, num) {
-//       return total + (parseFloat(num.invoice.subtotal) - parseFloat(num.invoice.discounts));
-//     }, 0);
-
-//     let data = {
-//       email: order.email,
-//       short_code: cookieInfo.mbsy,
-//       campaign_uid: cookieInfo.campaignId,
-//       auto_create: 0,
-//       transaction_uid: order._id,
-//       revenue: fullSubtotal
-//     };
-
-
-//     HTTP.call('POST','https://getambassador.com/api/v2/' + userName + '/' + apiKey + '/json/event/record', {
-//       params: data
-//     }, function (error, result) {
-//       if (error) {
-//         ReactionCore.Log.error('Failed to record Ambassador event for ambassador with code' + cookieInfo.mbsy, error);
-//         return error;
-//       }
-//     });
-//     return order;
-//   }
-// });

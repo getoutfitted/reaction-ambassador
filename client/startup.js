@@ -26,7 +26,7 @@ Router.Hooks.onEnter(function () {
         mbsy: queryParams.mbsy,
         mbsySource: queryParams.mbsy_source
       }
-      Meteor.call('addRefererToAccounts', ambassdor);
+      Meteor.call('ambassador/addRefererToAccounts', ambassdor);
     }
   }
 });
