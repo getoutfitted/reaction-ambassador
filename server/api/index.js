@@ -1,1 +1,1 @@
-export * from 'ambassador';
+export * from './ambassador';

@@ -50,16 +50,16 @@ export const Ambassador = function (orderId) {
         short_code: account.ambassador.mbsy,
         revenue: ambassadorReportableRevenue,
         auto_create: 0,
-        transaction_uid: order._id,
+        transaction_uid: order.orderNumber,
       }, function (err, res) {
         if (err) {
           Logger.error(`Ambassador encountered an Error with order ${order.orderNumber}`, err)
         } else {
-          Logger.Info(`Ambassdor sent information for ${order.orderNumver}`);
+          Logger.info(`Ambassador successfully sent information for ${order.orderNumber}`);
         }
       });
   } else {
-    Logger.warn(`Ambassador settings are missing. Data for ${}`);
+    Logger.warn(`Ambassador settings are missing. Data for  ${order._id} not sent.`);
   }
 }
 
